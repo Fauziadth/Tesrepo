@@ -311,6 +311,7 @@ function examMyProject(){
             if (sBody[0][0]==sBody[0][i] && sBody[1][0]==sBody[1][i]){
                 clearInterval(run);
                 console.log("Mati Ketabrak diri sendiri");
+				sel.disabled = false;
                 btn.innerHTML="Ulang";
             }
         }
