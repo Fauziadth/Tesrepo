@@ -6,12 +6,12 @@ Muhammad Fauzi Adithya | fauzi.adithya@gmail.com
 */
 
 function examMyProject(){
-    ChangeH("scriptResult",250);
+    ChangeH("scriptResult",260);
     document.getElementById("scriptResult").style.height = "250px"
     var bod = document.getElementById("bod");
     
     var div = document.getElementById("scriptResult");
-	div.innerHTML = "";
+	div.innerHTML = "MAINKAN MENGGUNAKAN WASD <br>";
 	var sel = window.event.target;
     var h = 200;
     var w = 300;
@@ -33,6 +33,8 @@ function examMyProject(){
     //Untuk indikasi hunger
     var sp = document.createElement("div");
     sp.id = "hunger"
+    sp.innerHTML = "Hunger";
+    sp.innerHTML.fontStyle = "#fff";
     //sp.style.display = "inline-block";
     sp.style.width = "300px";
     sp.style.height = "15px";
@@ -276,7 +278,7 @@ function examMyProject(){
         var series = new XYSeries("series1", t, score);
         var chart = new Chart2("drawingArea");
         chart.xAxis.label = "t";
-        chart.yAxis.label = "x";
+        chart.yAxis.label = "Score";
         chart.yAxis.Ntics = 1;
         chart.xAxis.Ntics = 0;
         chart.addSeries(series);
@@ -292,9 +294,10 @@ function examMyProject(){
     //Update hunger
     function uHung(){
         if(r>256){
-            console.log("Mati kelaparan cuk");
+            console.log("Mati kelaparan");
             clearInterval(run);
             btn.innerHTML="Ulang";
+			sel.disabled = false;
         }
         color = int2rgb(r, 255-r, 0 );
         sp.style.background = color;
@@ -307,7 +310,7 @@ function examMyProject(){
         for (var i =1; i<sBody[0].length;i++){
             if (sBody[0][0]==sBody[0][i] && sBody[1][0]==sBody[1][i]){
                 clearInterval(run);
-                console.log("Mati cog");
+                console.log("Mati Ketabrak diri sendiri");
                 btn.innerHTML="Ulang";
             }
         }
@@ -323,6 +326,24 @@ function examMyProject(){
     
     //Bikin makanan
     function spawnFood(){        
+        //Untuk tidak spawn ditubuh ular
+        var ada = false;
+        for (var i=0; i<sBody[0].length; i++){
+                if(sBody[0][i]==food[0] && sBody[1][i]==food[1]){
+                    ada = true;
+                }
+        }
+        while (ada){
+            food[0] = randInt(0,w/10)*10;
+            food[1] = randInt(0,h/10)*10;
+            ada = false;
+            for (var i=0; i<sBody[0].length; i++){
+                if(sBody[0][i]==food[0] && sBody[1][i]==food[1]){
+                    ada = true;
+                }
+            }
+        }
+        
         //Gambar di lokasi
         cx.fillStyle = "#f56464";
         cx.strokeStyle = "#c70606";
